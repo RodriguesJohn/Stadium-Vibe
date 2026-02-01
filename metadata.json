@@ -1,0 +1,7 @@
+{
+  "name": "StadiumVibe",
+  "description": "Transform your live soccer moments with context-aware AI filters that capture the energy and emotion of the game.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
