@@ -45,9 +45,18 @@ const App: React.FC = () => {
       const result = await transformImage(photo, filter);
       setResultImage(result);
       setState(AppState.PREVIEW);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to process image:", error);
-      alert("Something went wrong processing your photo. Please try again.");
+      
+      let errorMessage = "Something went wrong processing your photo. Please try again.";
+      
+      if (error.message?.includes('quota') || error.message?.includes('429')) {
+        errorMessage = "API quota exceeded. The free tier limit has been reached. Please try again later or contact the developer.";
+      } else if (error.message?.includes('API Key')) {
+        errorMessage = "API configuration error. Please contact the developer.";
+      }
+      
+      alert(errorMessage);
       setState(AppState.SELECT_FILTER);
     } finally {
       clearInterval(msgInterval);
